@@ -8,9 +8,10 @@ public class Spawner : MonoBehaviour
 {
     [SerializeField] private GameObject Enemey;
     [SerializeField] private Transform _spawn;
+    private float _spawnDelay = 2f;
     private Transform[] _spawners;
     private int _curretSpawner;
-
+    
     private void Start()
     {
         _spawners = new Transform[_spawn.childCount];
@@ -25,7 +26,7 @@ public class Spawner : MonoBehaviour
 
     private IEnumerator SpawnEnemy()
     {
-        var delay = new WaitForSeconds(2);
+        var delay = new WaitForSeconds(_spawnDelay);
         while (true)
         {
             Instantiate(Enemey, _spawners[_curretSpawner].position, Quaternion.identity);
