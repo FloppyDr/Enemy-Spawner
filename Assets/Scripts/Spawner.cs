@@ -6,13 +6,10 @@ using UnityEngine.Events;
 
 public class Spawner : MonoBehaviour
 {
-    public GameObject Enemey;
-
+    [SerializeField] private GameObject Enemey;
     [SerializeField] private Transform _spawn;
-
     private Transform[] _spawners;
     private int _curretSpawner;
-    public float _timer = 0;
 
     private void Start()
     {
@@ -22,23 +19,23 @@ public class Spawner : MonoBehaviour
         {
             _spawners[i] = _spawn.GetChild(i);
         }
+
+        StartCoroutine(SpawnEnemy());
     }
 
-    private void Update()
+    private IEnumerator SpawnEnemy()
     {
-        _timer += Time.deltaTime;
-
-        if (_timer >=2)
+        var delay = new WaitForSeconds(2);
+        while (true)
         {
             Instantiate(Enemey, _spawners[_curretSpawner].position, Quaternion.identity);
             _curretSpawner++;
-            _timer = 0;
-        }
 
-        if (_curretSpawner >= _spawners.Length)
-        {
-            _curretSpawner = 0;
+            if (_curretSpawner >= _spawners.Length)
+            {
+                _curretSpawner = 0;
+            }
+            yield return delay;
         }
     }
-
 }
