@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class Enemy : MonoBehaviour
 {
-    // Start is called before the first frame update
     [SerializeField] private Transform _wayPoint;
     [SerializeField] private float _speed;
 
